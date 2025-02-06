@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Non Invasive Glucometer</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Include Firebase scripts -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+</head>
+<body>
+  <div class="mainblue">
+    <h1 class="title1">The Non Invasive Glucometer</h1>
+    <p style="padding: 20px 40px; font-size:large;">Your Blood Glucose Level (in mg/dL) is: </p>
+    <div class="value" id="gluc" contentEditable=true></div>
+    <img src="glucorange.jpg" alt="Girl in a jacket" class="image2" width="600" height="350">
+  </div>
+  <img src="image.jpg" alt="Girl in a jacket" class="image" width="680" height="600">
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5AzYIAz192qmax7XkSCNuqudGj6L8FG0",
+      authDomain: "glucose-esp.firebaseapp.com",
+      databaseURL: "https://glucose-esp-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "glucose-esp",
+      storageBucket: "glucose-esp.appspot.com",
+      messagingSenderId: "13053064687",
+      appId: "1:13053064687:web:635050b560a10e7797321a"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the database service
+    const database = firebase.database();
+
+    // Function to read data from Firebase Database
+    function readData() {
+      const ref = database.ref('UsersData/EiesL3JUE6WmHTo951CMBJrgMYq1');
+      ref.once('value', (snapshot) => {
+        const data = snapshot.val();
+        console.log(data["x"]);
+        // Update HTML content with received data
+        document.getElementById('gluc').innerText = JSON.stringify(data["x"]);
+      });
+    }
+
+    // Call readData function when the page loads
+    window.onload = readData;
+  </script>
+</body>
+</html>

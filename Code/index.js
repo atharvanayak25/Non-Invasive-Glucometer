@@ -1,0 +1,1 @@
+///document.getElementById("glu").innerHTML = snapshot.val().key.value;
